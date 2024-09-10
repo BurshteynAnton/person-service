@@ -1,9 +1,8 @@
 package telran.java53.person.service;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import telran.java53.person.dto.AddressDto;
-import telran.java53.person.dto.CityPopulationDto;
-import telran.java53.person.dto.PersonDto;
+import telran.java53.person.dto.*;
+
+import java.util.List;
 
 public interface PersonService {
     Boolean addPerson(PersonDto personDto);
@@ -23,4 +22,9 @@ public interface PersonService {
     PersonDto[] findPersonsBetweenAge(Integer minAge, Integer maxAge);
 
     Iterable<CityPopulationDto> getCitiesPopulation();
+
+    Iterable<ChildDto> getAllChildren();
+
+
+    List<EmployeeDto> findEmployeesBySalary(int min, int max);
 }

@@ -15,6 +15,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Embeddable
 public class Address implements Serializable {
+
     private static final long serialVersionUID = -1878968599874987245L;
     String city;
     String street;

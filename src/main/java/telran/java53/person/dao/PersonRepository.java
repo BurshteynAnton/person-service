@@ -3,7 +3,9 @@ package telran.java53.person.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import telran.java53.person.dto.ChildDto;
 import telran.java53.person.dto.CityPopulationDto;
+import telran.java53.person.model.Employee;
 import telran.java53.person.model.Person;
 
 import java.time.LocalDate;
@@ -19,6 +21,16 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     Stream<Person> findByBirthDateBetween(LocalDate from, LocalDate to);
 
+//	@Query(value = "SELECT city, COUNT(*) AS population FROM java53.persons GROUP BY city ORDER BY population DESC", nativeQuery = true)
+//	@Query("select p.address.city, count(p) from Citizen p group by p.address.city order by count(p) desc")
+//	List<Object[]> getCityPopulation();
+
     @Query("select new telran.java53.person.dto.CityPopulationDto(p.address.city, count(p)) from Citizen p group by p.address.city order by count(p) desc")
     List<CityPopulationDto> getCityPopulation();
+
+    @Query("select new telran.java53.person.dto.ChildDto(c.kindergarten) from Child c")
+    List<ChildDto> getAllChildren();
+
+    @Query("select e from Employee e where e.salary between :min and :max")
+    List<Employee> findEmployeesBySalary(@Param("min") int min, @Param("max") int max);
 }
